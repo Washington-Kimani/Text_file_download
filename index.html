@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Download file</title>
+</head>
+<body>
+    <div class="main" id="main">
+        <div class="container">
+            <label for="name">File Name</label>
+            <input type="text" name="name" id="name" autofocus>
+            <textarea id="textArea" cols="25" rows="15" placeholder="Create your memories"></textarea>
+            <button type="button" id="btn">Download File</button>
+        </div>
+    </div>
+</body>
+<script>
+    const name = document.getElementById('name')
+    let button = document.getElementById('btn');
+
+    button.addEventListener('click', function(e){
+        let textAreaVal = document.getElementById('textArea').value
+
+        let fileName = name.value;
+
+        if(name.value === ''){
+            alert('Please name the memory')
+        } else if(textAreaVal === ''){
+            alert('Cannot download empty memories')
+        }else {
+            downLoad(textAreaVal, fileName)
+        }
+    })
+
+    const downLoad = (textAreaVal, fileName) => {
+        let element = document.createElement('a')
+        element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(textAreaVal))
+
+        element.setAttribute('download', fileName)
+        element.style.display = 'none';
+
+        document.body.appendChild(element)
+
+        element.click()
+        document.body.removeChild(element)
+    }
+</script>
+</html>
